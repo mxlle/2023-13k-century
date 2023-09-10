@@ -13,10 +13,23 @@ let evenElem,
   excludedPrimeFactorsElem,
   excludedSumOfDigitsElem,
   correctSumOfDigitsElem;
-let knownExcludedPrimeFactors = new Set();
+let knownExcludedPrimeFactors = [];
 let knownExcludedSumOfDigits = [];
 let isSumOfDigitsMatched = false;
-let currentProductOfAllKnownPrimeFactorsProperties;
+let currentGreatestKnownDivisorProperties;
+let isPrimeKnown = false;
+let isEvenKnown = false;
+
+export function getCurrentlyRevealedProperties() {
+  return {
+    currentGreatestKnownDivisorProperties,
+    isEvenKnown,
+    isPrimeKnown,
+    isSumOfDigitsMatched,
+    knownExcludedPrimeFactors,
+    knownExcludedSumOfDigits,
+  };
+}
 
 export function createRevealedProperties() {
   const container = createElement({ cssClass: "revealed-properties" });
@@ -89,18 +102,22 @@ export function updateRevealedProperties(result, guessProperties) {
 }
 
 function updateEvenOddProperties(isEven) {
+  isEvenKnown = true;
   evenElem.innerText = isEven ? "✅" : "❌";
   oddElem.innerText = !isEven ? "✅" : "❌";
 }
 
 function updateIsPrime(isPrime) {
-  primeElem.innerText = isPrime ? "✅" : "❌";
+  if (!isPrimeKnown) {
+    isPrimeKnown = true;
+    primeElem.innerText = isPrime ? "✅" : "❌";
+  }
 }
 
 function updateRevealedExcludedPrimeFactors(excludedPrimeFactors) {
   for (const excludedPrimeFactor of excludedPrimeFactors) {
-    if (!knownExcludedPrimeFactors.has(excludedPrimeFactor)) {
-      knownExcludedPrimeFactors.add(excludedPrimeFactor);
+    if (!knownExcludedPrimeFactors.includes(excludedPrimeFactor)) {
+      knownExcludedPrimeFactors.push(excludedPrimeFactor);
     }
   }
 
@@ -116,11 +133,10 @@ function updateRevealedPrimeFactors(primeFactors, isFinal) {
 }
 
 function updatedRevealedPrimeFactorsFromGcd(resultGcd) {
-  if (resultGcd !== currentProductOfAllKnownPrimeFactorsProperties?.value) {
+  if (resultGcd !== currentGreatestKnownDivisorProperties?.value) {
     const guessCommonDivisorProperties = getMathProperties(resultGcd);
-    if (!currentProductOfAllKnownPrimeFactorsProperties) {
-      currentProductOfAllKnownPrimeFactorsProperties =
-        guessCommonDivisorProperties;
+    if (!currentGreatestKnownDivisorProperties) {
+      currentGreatestKnownDivisorProperties = guessCommonDivisorProperties;
       updateRevealedPrimeFactors(
         guessCommonDivisorProperties.primeFactorization,
       );
@@ -128,17 +144,17 @@ function updatedRevealedPrimeFactorsFromGcd(resultGcd) {
       const newCurrentProductOfAllKnownPrimeFactorsProperties =
         getLeastCommonMultiple(
           guessCommonDivisorProperties,
-          currentProductOfAllKnownPrimeFactorsProperties,
+          currentGreatestKnownDivisorProperties,
         );
       if (
         newCurrentProductOfAllKnownPrimeFactorsProperties !==
-        currentProductOfAllKnownPrimeFactorsProperties.value
+        currentGreatestKnownDivisorProperties.value
       ) {
-        currentProductOfAllKnownPrimeFactorsProperties = getMathProperties(
+        currentGreatestKnownDivisorProperties = getMathProperties(
           newCurrentProductOfAllKnownPrimeFactorsProperties,
         );
         updateRevealedPrimeFactors(
-          currentProductOfAllKnownPrimeFactorsProperties.primeFactorization,
+          currentGreatestKnownDivisorProperties.primeFactorization,
         );
       }
     }
@@ -170,9 +186,11 @@ export function resetRevealedProperties() {
   evenElem.innerText = "?";
   oddElem.innerText = "?";
   primeElem.innerText = "?";
-  knownExcludedPrimeFactors = new Set();
+  knownExcludedPrimeFactors = [];
   knownExcludedSumOfDigits = [];
   isSumOfDigitsMatched = false;
+  isEvenKnown = false;
+  isPrimeKnown = false;
   includedPrimeFactorsElem.innerText = "☑️: ?";
   excludedSumOfDigitsElem.innerText = "X: ?";
   correctSumOfDigitsElem.innerText = "☑️: ?";
