@@ -187,6 +187,7 @@ export function resetRevealedProperties() {
   evenElem.innerText = "?";
   oddElem.innerText = "?";
   primeElem.innerText = "?";
+  currentGreatestKnownDivisorProperties = undefined;
   knownExcludedPrimeFactors = [];
   knownExcludedSumOfDigits = [];
   isSumOfDigitsMatched = false;
