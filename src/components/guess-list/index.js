@@ -64,7 +64,9 @@ export function addGuessListEntry(guessProperties, result, isPrimeKnown) {
     });
 
     entry.append(evenOddElem);
-    entry.append(primeElem);
+    if (globals.checkForPrimes) {
+      entry.append(primeElem);
+    }
     entry.append(primeFactorsElem);
     entry.append(sumOfDigitsElem);
   }

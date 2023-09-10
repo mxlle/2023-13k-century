@@ -6,12 +6,10 @@ import {
   getMathProperties,
   initGameData,
   newGame,
-  START_DIGIT_HINT,
 } from "./game-logic";
 import { createNumberInputComponent } from "./components/number-input";
 import { globals } from "./globals";
 import {
-  addDigitHint,
   addGuessListEntry,
   getGuessList,
   resetGuessList,
@@ -135,9 +133,10 @@ function init() {
     if (result === true) {
       submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
       document.body.classList.add("win");
-    } else if (globals.tries === START_DIGIT_HINT) {
-      addDigitHint();
     }
+    /* else if (globals.tries === START_DIGIT_HINT) {
+      addDigitHint();
+    }*/
   }
 
   numberInput.input.addEventListener("keydown", (event) => {

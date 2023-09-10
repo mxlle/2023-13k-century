@@ -1,9 +1,13 @@
 .revealed-properties {
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(5, auto);
   gap: 1rem;
   grid-auto-rows: min-content;
   margin: 1rem auto;
+
+  &.has-prime {
+    grid-template-columns: repeat(6, auto);
+  }
 
   .guess-list {
     display: contents;

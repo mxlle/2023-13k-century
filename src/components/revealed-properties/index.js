@@ -43,7 +43,10 @@ export function createRevealedProperties() {
   entry.append(createElement({ text: "" }));
   entry.append(createElement({ text: "Secret", cssClass: "secret" }));
   entry.append(createElement({ text: "Even/Odd" }));
-  entry.append(createElement({ text: "Prime" }));
+  if (globals.checkForPrimes) {
+    entry.append(createElement({ text: "Prime" }));
+    containerElem.classList.add("has-prime");
+  }
   entry.append(createElement({ text: "Prime factors" }));
   entry.append(createElement({ text: "Sum of digits" }));
   containerElem.append(entry);
@@ -66,7 +69,9 @@ export function createRevealedProperties() {
   valuesEntry.append(createElement({ text: "" }));
   valuesEntry.append(secretElem);
   valuesEntry.append(evenOddElem);
-  valuesEntry.append(primeElem);
+  if (globals.checkForPrimes) {
+    valuesEntry.append(primeElem);
+  }
   valuesEntry.append(primeFactorsElem);
   valuesEntry.append(sumOfDigitsElem);
   containerElem.append(valuesEntry);
@@ -92,8 +97,10 @@ export function updateRevealedProperties(result, guessProperties) {
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
     updateIsPrime(globals.xProperties.isPrime);
   } else {
-    if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
-      updateIsPrime(result.isPrime);
+    if (globals.checkForPrimes) {
+      if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
+        updateIsPrime(result.isPrime);
+      }
     }
 
     if (result.greatestCommonDivisor) {
