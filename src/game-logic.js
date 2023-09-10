@@ -19,22 +19,22 @@ export function initGameData() {
   globals.xProperties = getMathProperties(globals.x);
 }
 
-export function evaluateGuess(guess) {
+export function evaluateGuess(guess, guessProperties) {
   globals.tries++;
 
-  console.log(mathPropertiesToString(getMathProperties(guess)));
+  console.log(mathPropertiesToString(guessProperties));
 
   if (guess === globals.x) {
     return true;
   } else {
     const matchingProperties = getMatchingMathProperties(
-      getMathProperties(guess),
+      guessProperties,
       globals.xProperties,
     );
 
     console.log(matchingProperties);
 
-    return mathPropertiesToStringArray(matchingProperties);
+    return matchingProperties;
   }
 }
 
@@ -80,7 +80,7 @@ function getFactors(int) {
   return factors;
 }
 
-function getPrimeFactorization(int) {
+export function getPrimeFactorization(int) {
   const factors = [];
   let remainder = int;
 
@@ -155,7 +155,7 @@ function mathPropertiesToString(properties) {
   `;
 }
 
-function mathPropertiesToStringArray(properties) {
+export function mathPropertiesToStringArray(properties) {
   const {
     greatestCommonDivisor,
     isPrime,

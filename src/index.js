@@ -3,7 +3,9 @@ import "./index.scss";
 import { createButton, createElement } from "./utils/html-utils";
 import {
   evaluateGuess,
+  getMathProperties,
   initGameData,
+  mathPropertiesToStringArray,
   newGame,
   START_DIGIT_HINT,
 } from "./game-logic";
@@ -18,12 +20,19 @@ import {
 import { getTranslation, TranslationKey } from "./translations";
 import { createDialog } from "./components/dialog";
 import { createCheatSheet } from "./components/cheat-sheet";
+import {
+  createRevealedProperties,
+  resetRevealedProperties,
+  updateRevealedProperties,
+} from "./components/revealed-properties";
 
 let submitButton, configDialog, cheatSheetDialog;
 
 function onNewGameClick() {
   newGame();
   resetGuessList();
+  resetRevealedProperties();
+  document.body.classList.remove("win");
   submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
 }
 
@@ -97,12 +106,20 @@ function init() {
       return;
     }
 
-    const result = evaluateGuess(guess);
-    addGuessListEntry(guess, result);
+    const guessProperties = getMathProperties(guess);
+
+    const result = evaluateGuess(guess, guessProperties);
+    addGuessListEntry(
+      guess,
+      result === true ? true : mathPropertiesToStringArray(result),
+    );
+    updateRevealedProperties(result, guessProperties);
+
     numberInput.input.value = "";
 
     if (result === true) {
       submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
+      document.body.classList.add("win");
     } else if (globals.tries === START_DIGIT_HINT) {
       addDigitHint();
     }
@@ -122,9 +139,12 @@ function init() {
   });
   submitButton.classList.add("submit-btn");
 
+  const revealedProperties = createRevealedProperties();
+
   document.body.appendChild(header);
   document.body.appendChild(numberInput.container);
   document.body.appendChild(submitButton);
+  document.body.appendChild(revealedProperties);
   document.body.appendChild(guessList);
 }
 
