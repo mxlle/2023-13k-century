@@ -61,7 +61,7 @@ export function updateRevealedProperties(result, guessProperties) {
   if (globals.tries === 1) {
     updateEvenOddProperties(globals.xProperties.isEven);
   }
-  if (guessProperties.isPrime) {
+  if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
     updateIsPrime(result.isPrime);
   }
   if (result.greatestCommonDivisor) {
@@ -78,6 +78,7 @@ export function updateRevealedProperties(result, guessProperties) {
   if (result === true) {
     updateRevealedPrimeFactors(globals.xProperties.primeFactorization, true);
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
+    updateIsPrime(globals.xProperties.isPrime);
   }
 }
 
