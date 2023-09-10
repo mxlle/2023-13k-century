@@ -5,7 +5,6 @@ import {
   evaluateGuess,
   getMathProperties,
   initGameData,
-  mathPropertiesToStringArray,
   newGame,
   START_DIGIT_HINT,
 } from "./game-logic";
@@ -26,6 +25,8 @@ import {
 } from "./components/cheat-sheet";
 import {
   createRevealedProperties,
+  getCurrentlyRevealedProperties,
+  registerGuessListElement,
   resetRevealedProperties,
   updateRevealedProperties,
 } from "./components/revealed-properties";
@@ -118,16 +119,16 @@ function init() {
     const guessProperties = getMathProperties(guess);
 
     const result = evaluateGuess(guess, guessProperties);
-    addGuessListEntry(
-      guess,
-      result === true ? true : mathPropertiesToStringArray(result),
-    );
     updateRevealedProperties(result, guessProperties);
+    const values = getCurrentlyRevealedProperties();
+    addGuessListEntry(guessProperties, result, values.isPrimeKnown);
 
     updatePossibleNumbers(possibleNumberElem);
     if (cheatSheetDialog) {
       cheatSheetDialog.recreateDialogContent(createCheatSheet());
     }
+
+    registerGuessListElement(guessList);
 
     numberInput.input.value = "";
 
@@ -164,7 +165,7 @@ function init() {
   document.body.appendChild(possibleNumberElem);
   document.body.appendChild(submitButton);
   document.body.appendChild(revealedProperties);
-  document.body.appendChild(guessList);
+  registerGuessListElement(guessList);
 }
 
 function getConfigContainer() {

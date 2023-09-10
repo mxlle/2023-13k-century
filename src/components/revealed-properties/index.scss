@@ -5,9 +5,29 @@
   grid-auto-rows: min-content;
   margin: 1rem auto;
 
+  .guess-list {
+    display: contents;
+  }
+
   h2 {
     grid-column: 1 / -1;
     text-align: center;
+  }
+
+  .correct-result {
+    grid-column: 3 / -1;
+  }
+
+  .matching {
+    color: lime;
+  }
+
+  .not-matching {
+    color: red;
+  }
+
+  .match-unknown {
+    color: #aaa;
   }
 
   .table-row {
