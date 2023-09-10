@@ -13,7 +13,7 @@ let evenElem,
   excludedPrimeFactorsElem,
   excludedSumOfDigitsElem,
   correctSumOfDigitsElem;
-let knownExcludedPrimeFactors = [];
+let knownExcludedPrimeFactors = new Set();
 let knownExcludedSumOfDigits = [];
 let isSumOfDigitsMatched = false;
 let currentProductOfAllKnownPrimeFactorsProperties;
@@ -24,7 +24,7 @@ export function createRevealedProperties() {
   const header = createElement({ text: "Properties of the secret", tag: "h2" });
   container.append(header);
 
-  const entry = createElement({ cssClass: "table-row" });
+  const entry = createElement({ cssClass: "table-row header-row" });
   entry.append(createElement({ text: "Even" }));
   entry.append(createElement({ text: "Odd" }));
   entry.append(createElement({ text: "Prime" }));
@@ -74,6 +74,13 @@ export function updateRevealedProperties(result, guessProperties) {
     updateRevealedExcludedSumOfDigits(guessProperties.sumOfDigits);
   }
 
+  const excludedPrimeFactors = guessProperties.uniquePrimeFactors.filter(
+    (primeFactor) =>
+      !result.greatestCommonDivisor ||
+      result.greatestCommonDivisor % primeFactor !== 0,
+  );
+  updateRevealedExcludedPrimeFactors(excludedPrimeFactors);
+
   if (result === true) {
     updateRevealedPrimeFactors(globals.xProperties.primeFactorization, true);
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
@@ -88,6 +95,17 @@ function updateEvenOddProperties(isEven) {
 
 function updateIsPrime(isPrime) {
   primeElem.innerText = isPrime ? "✅" : "❌";
+}
+
+function updateRevealedExcludedPrimeFactors(excludedPrimeFactors) {
+  for (const excludedPrimeFactor of excludedPrimeFactors) {
+    if (!knownExcludedPrimeFactors.has(excludedPrimeFactor)) {
+      knownExcludedPrimeFactors.add(excludedPrimeFactor);
+    }
+  }
+
+  excludedPrimeFactorsElem.innerText =
+    "X: " + [...knownExcludedPrimeFactors].sort((a, b) => a - b).join(", ");
 }
 
 function updateRevealedPrimeFactors(primeFactors, isFinal) {
@@ -152,7 +170,7 @@ export function resetRevealedProperties() {
   evenElem.innerText = "?";
   oddElem.innerText = "?";
   primeElem.innerText = "?";
-  knownExcludedPrimeFactors = [];
+  knownExcludedPrimeFactors = new Set();
   knownExcludedSumOfDigits = [];
   isSumOfDigitsMatched = false;
   includedPrimeFactorsElem.innerText = "☑️: ?";
