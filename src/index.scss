@@ -1,0 +1,138 @@
+@import "theme";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 12px;
+
+  @media (min-width: 375px) {
+    font-size: 16px;
+  }
+
+  @media (min-width: 600px) {
+    font-size: 24px;
+  }
+}
+
+body {
+  background: #09162a;
+  color: white;
+  font-family: $font-family;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: min-content;
+  justify-items: center;
+}
+
+header {
+  display: grid;
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.number-input,
+.submit-btn,
+.guess-list {
+  width: 90vw;
+  max-width: 500px;
+}
+
+.guess-list {
+  max-width: 600px;
+}
+
+.submit-btn {
+  font-size: 0.8em;
+}
+
+input {
+  box-sizing: border-box;
+  font-size: 2rem;
+  width: 100%;
+  background: #222;
+  border: 1px solid #555;
+  color: white;
+  text-align: right;
+
+  &::placeholder {
+    font-weight: 200;
+    font-size: 0.75em;
+    color: #555;
+    text-align: left;
+    padding: 0.5rem;
+  }
+}
+
+button,
+label {
+  font-family: $font-family;
+  cursor: pointer;
+  color: white;
+  border: 1px solid #ccc;
+  background-color: rgba(white, 0.1);
+  padding: 1rem 2rem;
+  border-radius: $border-radius;
+
+  @include hover {
+    background-color: rgba(white, 0.2);
+  }
+
+  &.primary-btn {
+    border: 1px solid $main-color;
+    background-color: rgba($main-color, 0.1);
+
+    @include hover {
+      background-color: rgba($main-color, 0.2);
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+%no-bg-btn {
+  background: none;
+  border: none;
+
+  @include hover {
+    background: none;
+  }
+}
+
+button.icon-btn {
+  @extend %no-bg-btn;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  color: #ccc;
+  transform: scale(1);
+  transition: transform 0.3s;
+
+  @include hover {
+    transform: scale(1.2);
+  }
+}
+
+.config-container {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  button {
+    font-size: 2em;
+  }
+}
