@@ -38,6 +38,9 @@ function onNewGameClick() {
   resetRevealedProperties();
   resetPossibleNumbers();
   updatePossibleNumbers(possibleNumberElem);
+  if (cheatSheetDialog) {
+    cheatSheetDialog.recreateDialogContent(createCheatSheet());
+  }
   document.body.classList.remove("win");
   submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
 }
