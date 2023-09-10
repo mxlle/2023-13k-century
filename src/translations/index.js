@@ -23,6 +23,7 @@ export const TranslationKey = {
   SUM_OF_DIGITS: "sumOfDigits",
   PRIME_FACTORIZATION_COUNT: "primeFactorizationCount",
   GREATEST_COMMON_DIVISOR: "greatestCommonFactor",
+  CHEAT_SHEET: "cheatSheet",
 };
 
 const Translation = {
@@ -113,6 +114,10 @@ const Translation = {
   [TranslationKey.GREATEST_COMMON_DIVISOR]: {
     en: "GCD",
     de: "ggT",
+  },
+  [TranslationKey.CHEAT_SHEET]: {
+    en: "Cheat sheet",
+    de: "Spickzettel",
   },
 };
 

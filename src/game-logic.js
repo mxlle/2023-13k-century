@@ -29,7 +29,7 @@ export function evaluateGuess(guess) {
   } else {
     const matchingProperties = getMatchingMathProperties(
       getMathProperties(guess),
-      globals.xProperties
+      globals.xProperties,
     );
 
     console.log(matchingProperties);
@@ -38,7 +38,7 @@ export function evaluateGuess(guess) {
   }
 }
 
-function getMathProperties(int) {
+export function getMathProperties(int) {
   const factors = getFactors(int);
 
   const primeFactorization = getPrimeFactorization(int);
@@ -113,7 +113,7 @@ function getMatchingMathProperties(properties1, properties2) {
   if (globals.tries > START_DIGIT_HINT) {
     const commonDigits = getArrayIntersection(
       removeDuplicates(properties1.digits),
-      removeDuplicates(properties2.digits)
+      removeDuplicates(properties2.digits),
     );
 
     if (commonDigits.length > 0) {
@@ -123,7 +123,7 @@ function getMatchingMathProperties(properties1, properties2) {
 
   const commonFactors = getArrayIntersection(
     properties1.factors,
-    properties2.factors
+    properties2.factors,
   );
 
   if (commonFactors.length > 0) {
@@ -175,28 +175,28 @@ function mathPropertiesToStringArray(properties) {
   if (commonDigits !== undefined) {
     stringArray.push(
       `${getTranslation(TranslationKey.COMMON_DIGITS)}: ${commonDigits.join(
-        ", "
-      )}`
+        ", ",
+      )}`,
     );
   }
 
   if (sumOfDigits !== undefined) {
     stringArray.push(
-      `${getTranslation(TranslationKey.SUM_OF_DIGITS)}: ${sumOfDigits}`
+      `${getTranslation(TranslationKey.SUM_OF_DIGITS)}: ${sumOfDigits}`,
     );
   }
 
   if (isEven !== undefined) {
     stringArray.push(
-      getTranslation(isEven ? TranslationKey.EVEN : TranslationKey.ODD)
+      getTranslation(isEven ? TranslationKey.EVEN : TranslationKey.ODD),
     );
   }
 
   if (greatestCommonDivisor !== undefined) {
     stringArray.push(
       `${getTranslation(
-        TranslationKey.GREATEST_COMMON_DIVISOR
-      )}: ${greatestCommonDivisor}`
+        TranslationKey.GREATEST_COMMON_DIVISOR,
+      )}: ${greatestCommonDivisor}`,
     );
   }
 
@@ -207,8 +207,8 @@ function mathPropertiesToStringArray(properties) {
   if (primeFactorizationCount !== undefined && !isPrime) {
     stringArray.push(
       `${getTranslation(
-        TranslationKey.PRIME_FACTORIZATION_COUNT
-      )}: ${primeFactorizationCount}`
+        TranslationKey.PRIME_FACTORIZATION_COUNT,
+      )}: ${primeFactorizationCount}`,
     );
   }
 

@@ -17,8 +17,9 @@ import {
 } from "./components/guess-list";
 import { getTranslation, TranslationKey } from "./translations";
 import { createDialog } from "./components/dialog";
+import { createCheatSheet } from "./components/cheat-sheet";
 
-let submitButton, configDialog;
+let submitButton, configDialog, cheatSheetDialog;
 
 function onNewGameClick() {
   newGame();
@@ -38,6 +39,18 @@ function openConfig() {
   configDialog.open();
 }
 
+function openCheatSheet() {
+  if (!cheatSheetDialog) {
+    cheatSheetDialog = createDialog(
+      createCheatSheet(globals.minNum, globals.maxNum),
+      undefined,
+      getTranslation(TranslationKey.CHEAT_SHEET),
+    );
+  }
+
+  cheatSheetDialog.open();
+}
+
 function init() {
   initGameData();
 
@@ -55,6 +68,9 @@ function init() {
         globals.maxNum
       }`,
     }),
+  );
+  header.append(
+    createButton({ text: "👀", onClick: openCheatSheet, iconBtn: true }),
   );
   header.append(
     createButton({ text: "⚙️", onClick: openConfig, iconBtn: true }),
