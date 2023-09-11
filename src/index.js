@@ -105,6 +105,7 @@ function init() {
   );
   header.append(
     createElement({
+      tag: "h1",
       text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
         TranslationKey.BETWEEN,
       )} ${globals.minNum} ${getTranslation(TranslationKey.AND)} ${
@@ -210,9 +211,9 @@ function init() {
   updatePossibleNumbers(possibleNumberElem);
 
   document.body.appendChild(header);
-  document.body.appendChild(getStarsForGameField());
   document.body.appendChild(numberInput.container);
   document.body.appendChild(submitButton);
+  document.body.appendChild(getStarsForGameField());
   document.body.appendChild(possibleNumberContainer);
   document.body.appendChild(revealedProperties);
   registerGuessListElement(guessList);

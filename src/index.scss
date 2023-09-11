@@ -41,10 +41,22 @@ header {
   display: grid;
   box-sizing: border-box;
   padding: 0.5rem 1rem;
-  grid-template-columns: min-content 1fr auto min-content;
+  grid-template-columns: min-content 1fr min-content;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.1rem 1.5rem;
   width: 100%;
+  font-family: cursive;
+
+  h1 {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .global-stars {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 0.8em;
+  }
 }
 
 .number-input,
