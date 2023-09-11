@@ -5,7 +5,6 @@ import {
   getArrayIntersection,
   removeDuplicates,
 } from "./utils/array-utils";
-import { getTranslation, TranslationKey } from "./translations";
 
 export const START_DIGIT_HINT = 15;
 
@@ -168,7 +167,7 @@ function mathPropertiesToString(properties) {
   `;
 }
 
-export function mathPropertiesToStringArray(properties) {
+/*export function mathPropertiesToStringArray(properties) {
   const {
     greatestCommonDivisor,
     isPrime,
@@ -226,4 +225,4 @@ export function mathPropertiesToStringArray(properties) {
   }
 
   return stringArray;
-}
+}*/

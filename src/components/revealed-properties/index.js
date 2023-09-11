@@ -3,6 +3,7 @@ import { createElement } from "../../utils/html-utils";
 import "./index.scss";
 import { globals } from "../../globals";
 import { getLeastCommonMultiple, getMathProperties } from "../../game-logic";
+import { getTranslation, TranslationKey } from "../../translations";
 
 let containerElem,
   guessListElem,
@@ -36,19 +37,33 @@ export function getCurrentlyRevealedProperties() {
 export function createRevealedProperties() {
   containerElem = createElement({ cssClass: "revealed-properties" });
 
-  const header = createElement({ text: "Properties of the secret", tag: "h2" });
+  const header = createElement({
+    text: getTranslation(TranslationKey.SECRET_PROPERTIES),
+    tag: "h2",
+  });
   containerElem.append(header);
 
   const entry = createElement({ cssClass: "table-row header-row" });
   entry.append(createElement({ text: "" }));
-  entry.append(createElement({ text: "Secret", cssClass: "secret" }));
-  entry.append(createElement({ text: "Even/Odd" }));
+  entry.append(
+    createElement({
+      text: getTranslation(TranslationKey.SECRET),
+      cssClass: "secret",
+    }),
+  );
+  entry.append(
+    createElement({ text: getTranslation(TranslationKey.EVEN_ODD) }),
+  );
   if (globals.checkForPrimes) {
-    entry.append(createElement({ text: "Prime" }));
+    entry.append(createElement({ text: getTranslation(TranslationKey.PRIME) }));
     containerElem.classList.add("has-prime");
   }
-  entry.append(createElement({ text: "Prime factors" }));
-  entry.append(createElement({ text: "Sum of digits" }));
+  entry.append(
+    createElement({ text: getTranslation(TranslationKey.PRIME_FACTORIZATION) }),
+  );
+  entry.append(
+    createElement({ text: getTranslation(TranslationKey.SUM_OF_DIGITS) }),
+  );
   containerElem.append(entry);
 
   secretElem = createElement({ text: "?", cssClass: "secret" });
@@ -123,7 +138,9 @@ export function updateRevealedProperties(result, guessProperties) {
 
 function updateEvenOddProperties(isEven) {
   isEvenKnown = true;
-  evenOddElem.innerText = isEven ? "even" : "odd";
+  evenOddElem.innerText = isEven
+    ? getTranslation(TranslationKey.EVEN)
+    : getTranslation(TranslationKey.ODD);
   evenOddElem.classList.add("matching");
 }
 
