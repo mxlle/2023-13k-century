@@ -72,12 +72,18 @@ export function createRevealedProperties() {
   primeFactorsElem = createElement({ cssClass: "prime-factors" });
   includedPrimeFactorsElem = createElement({ text: "✔: ?" });
   primeFactorsElem.appendChild(includedPrimeFactorsElem);
-  excludedPrimeFactorsElem = createElement({ text: "X: ?" });
+  excludedPrimeFactorsElem = createElement({
+    text: "",
+    cssClass: "not-matching-subtle",
+  });
   primeFactorsElem.appendChild(excludedPrimeFactorsElem);
   sumOfDigitsElem = createElement({ cssClass: "sum-of-digits" });
   correctSumOfDigitsElem = createElement({ text: "✔: ?" });
   sumOfDigitsElem.appendChild(correctSumOfDigitsElem);
-  excludedSumOfDigitsElem = createElement({ text: "X: ?" });
+  excludedSumOfDigitsElem = createElement({
+    text: "",
+    cssClass: "not-matching-subtle",
+  });
   sumOfDigitsElem.appendChild(excludedSumOfDigitsElem);
 
   const valuesEntry = createElement({ cssClass: "table-row" });
@@ -231,7 +237,7 @@ export function resetRevealedProperties() {
   isEvenKnown = false;
   isPrimeKnown = false;
   includedPrimeFactorsElem.innerText = "☑️: ?";
-  excludedSumOfDigitsElem.innerText = "X: ?";
+  excludedSumOfDigitsElem.innerText = "";
   correctSumOfDigitsElem.innerText = "☑️: ?";
-  excludedPrimeFactorsElem.innerText = "X: ?";
+  excludedPrimeFactorsElem.innerText = "";
 }
