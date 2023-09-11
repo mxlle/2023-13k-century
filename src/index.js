@@ -32,12 +32,20 @@ import {
 } from "./components/revealed-properties";
 import {
   createGlobalStarsComponent,
+  FULL_STAR,
   getStarsForGameField,
   updateStarMap,
 } from "./components/stars";
 import { PubSubEvent, pubSubService } from "./utils/pub-sub-service";
+import { sleep } from "./utils/promise-utils";
 
-let submitButton, configDialog, cheatSheetDialog, possibleNumberElem;
+let submitButton,
+  configDialog,
+  cheatSheetDialog,
+  possibleNumberElem,
+  cheatSheetBtn;
+
+let isCheatSheetActivated = false;
 
 function onNewGameClick() {
   newGame();
@@ -45,6 +53,8 @@ function onNewGameClick() {
   resetRevealedProperties();
   resetPossibleNumbers();
   updatePossibleNumbers(possibleNumberElem);
+  isCheatSheetActivated = false;
+  cheatSheetBtn.classList.remove("unlocked");
   if (cheatSheetDialog) {
     cheatSheetDialog.recreateDialogContent(createCheatSheet());
   }
@@ -65,7 +75,14 @@ function openConfig() {
   configDialog.open();
 }
 
-function openCheatSheet() {
+async function openCheatSheet() {
+  if (!isCheatSheetActivated) {
+    isCheatSheetActivated = true;
+    cheatSheetBtn.classList.add("unlocked");
+    pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
+    await sleep(500);
+  }
+
   if (!cheatSheetDialog) {
     cheatSheetDialog = createDialog(
       createCheatSheet(),
@@ -86,7 +103,6 @@ function init() {
   header.append(
     createButton({ text: "🔄", onClick: onNewGameClick, iconBtn: true }),
   );
-  header.append(createGlobalStarsComponent());
   header.append(
     createElement({
       text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
@@ -96,9 +112,7 @@ function init() {
       }`,
     }),
   );
-  header.append(
-    createButton({ text: "👀", onClick: openCheatSheet, iconBtn: true }),
-  );
+  header.append(createGlobalStarsComponent());
   header.append(
     createButton({ text: "⚙️", onClick: openConfig, iconBtn: true }),
   );
@@ -171,15 +185,35 @@ function init() {
 
   const revealedProperties = createRevealedProperties();
 
+  const possibleNumberContainer = createElement({
+    cssClass: "possible-number-container",
+  });
+
   possibleNumberElem = createElement({ cssClass: "possible-numbers" });
+  possibleNumberContainer.append(possibleNumberElem);
+
+  cheatSheetBtn = createButton({
+    text: `👀 ${getTranslation(TranslationKey.CHEAT_SHEET)}`,
+    onClick: openCheatSheet,
+  });
+  cheatSheetBtn.classList.add("cheat-sheet-btn");
+  cheatSheetBtn.appendChild(
+    createElement({
+      text: `🔓 -${FULL_STAR}`,
+      cssClass: "cheat-lock",
+      tag: "span",
+    }),
+  );
+
+  possibleNumberContainer.append(cheatSheetBtn);
 
   updatePossibleNumbers(possibleNumberElem);
 
   document.body.appendChild(header);
   document.body.appendChild(getStarsForGameField());
   document.body.appendChild(numberInput.container);
-  document.body.appendChild(possibleNumberElem);
   document.body.appendChild(submitButton);
+  document.body.appendChild(possibleNumberContainer);
   document.body.appendChild(revealedProperties);
   registerGuessListElement(guessList);
 }
