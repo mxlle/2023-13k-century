@@ -7,6 +7,8 @@ import {
 } from "./utils/array-utils";
 
 export const START_DIGIT_HINT = 15;
+export const LOSE_STAR_TRIES = [7, 13, 30, 42];
+export const WIN_STAR_TRIES = [13, 42];
 
 export function newGame() {
   resetGlobals();
