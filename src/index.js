@@ -266,9 +266,9 @@ function getConfigContainer() {
 
   container.append(
     createButton({
-      text: getTranslation(TranslationKey.CENTURY) + " (1200-1299)",
+      text: getTranslation(TranslationKey.CENTURY) + " (1201-1300)",
       onClick: () => {
-        closeAndReload(1200, 1299);
+        closeAndReload(1201, 1300);
       },
     }),
   );
