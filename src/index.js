@@ -244,6 +244,13 @@ function init() {
 
   updatePossibleNumbers(possibleNumberElem);
 
+  const resultsBtn = createButton({
+    text: getTranslation(TranslationKey.STAR_CHART),
+    onClick: openStarChart,
+    iconBtn: true,
+  });
+  resultsBtn.classList.add("results-btn");
+
   const rulesBtn = createButton({
     text: "❓ " + getTranslation(TranslationKey.RULES),
     onClick: () => {
@@ -262,13 +269,7 @@ function init() {
   mainContainer.appendChild(getStarsForGameField());
   mainContainer.appendChild(possibleNumberContainer);
   mainContainer.appendChild(revealedProperties);
-  mainContainer.appendChild(
-    createButton({
-      text: getTranslation(TranslationKey.STAR_CHART),
-      onClick: openStarChart,
-      iconBtn: true,
-    }),
-  );
+  mainContainer.appendChild(resultsBtn);
   mainContainer.appendChild(rulesBtn);
   registerGuessListElement(guessList);
 }

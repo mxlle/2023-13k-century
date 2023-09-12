@@ -197,3 +197,7 @@ button.icon-btn {
     color: cyan;
   }
 }
+
+body:not(.has-stars) .results-btn {
+  display: none;
+}

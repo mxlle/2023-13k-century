@@ -131,6 +131,8 @@ export function setCurrentGlobalStars() {
   globalStars = tempStars;
 
   updateGlobalStarsElement();
+
+  document.body.classList.toggle("has-stars", globalStars > 0);
 }
 
 function updateGlobalStarsElement() {
