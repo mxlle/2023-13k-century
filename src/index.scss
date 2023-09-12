@@ -30,12 +30,19 @@ body {
   font-family: $font-family;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  hyphens: auto;
+  overflow: hidden;
+}
+
+.main-container {
   text-align: center;
   display: grid;
   gap: 1.5rem;
   grid-auto-rows: min-content;
   justify-items: center;
-  hyphens: auto;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 
 header {
@@ -164,16 +171,20 @@ button.icon-btn {
 .config-container {
   display: grid;
   grid-auto-rows: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 2rem;
   button {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 }
 
 .possible-numbers {
   font-style: italic;
   font-size: 0.7em;
+}
+
+.rules-btn {
+  margin-bottom: 2rem;
 }
 
 .rules-text {

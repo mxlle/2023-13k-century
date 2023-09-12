@@ -236,14 +236,18 @@ function init() {
     },
     iconBtn: true,
   });
+  rulesBtn.classList.add("rules-btn");
 
-  document.body.appendChild(header);
-  document.body.appendChild(numberInput.container);
-  document.body.appendChild(submitButton);
-  document.body.appendChild(getStarsForGameField());
-  document.body.appendChild(possibleNumberContainer);
-  document.body.appendChild(revealedProperties);
-  document.body.appendChild(rulesBtn);
+  const mainContainer = createElement({ cssClass: "main-container" });
+  document.body.appendChild(mainContainer);
+
+  mainContainer.appendChild(header);
+  mainContainer.appendChild(numberInput.container);
+  mainContainer.appendChild(submitButton);
+  mainContainer.appendChild(getStarsForGameField());
+  mainContainer.appendChild(possibleNumberContainer);
+  mainContainer.appendChild(revealedProperties);
+  mainContainer.appendChild(rulesBtn);
   registerGuessListElement(guessList);
 }
 
