@@ -74,18 +74,26 @@ export function createStarChartComponent() {
     cssClass: "star-chart",
   });
 
+  const notYetReachedNumbers = [];
+
   const starMap = getStarMap();
   for (let i = globals.minNum; i <= globals.maxNum; i++) {
     const achievedStars = starMap[i];
-    if (achievedStars === undefined) {
-      continue;
-    }
 
     const starContainer = createElement({
       cssClass: "star-container",
     });
     starContainer.appendChild(createElement({ text: i, cssClass: "number" }));
-    starContainer.appendChild(createStarComponent(achievedStars));
+    starContainer.appendChild(createStarComponent(achievedStars ?? 0));
+
+    if (achievedStars === undefined) {
+      notYetReachedNumbers.push(starContainer);
+    } else {
+      starChart.appendChild(starContainer);
+    }
+  }
+
+  for (const starContainer of notYetReachedNumbers) {
     starChart.appendChild(starContainer);
   }
 
