@@ -69,6 +69,29 @@ export function createGlobalStarsComponent() {
   return globalStarsElem;
 }
 
+export function createStarChartComponent() {
+  const starChart = createElement({
+    cssClass: "star-chart",
+  });
+
+  const starMap = getStarMap();
+  for (let i = globals.minNum; i <= globals.maxNum; i++) {
+    const achievedStars = starMap[i];
+    if (achievedStars === undefined) {
+      continue;
+    }
+
+    const starContainer = createElement({
+      cssClass: "star-container",
+    });
+    starContainer.appendChild(createElement({ text: i, cssClass: "number" }));
+    starContainer.appendChild(createStarComponent(achievedStars));
+    starChart.appendChild(starContainer);
+  }
+
+  return starChart;
+}
+
 function getStarMapKey() {
   return `${LocalStorageKey.STAR_MAP}-${globals.minNum}-${globals.maxNum}`;
 }
@@ -96,7 +119,7 @@ export function setCurrentGlobalStars() {
   for (let i = globals.minNum; i <= globals.maxNum; i++) {
     tempStars += starMap[i] ?? 0;
   }
-  console.log("tempStars", tempStars, starMap);
+
   globalStars = tempStars;
 
   updateGlobalStarsElement();

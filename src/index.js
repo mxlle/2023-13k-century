@@ -32,6 +32,7 @@ import {
 } from "./components/revealed-properties";
 import {
   createGlobalStarsComponent,
+  createStarChartComponent,
   FULL_STAR,
   getStarsForGameField,
   updateStarMap,
@@ -43,6 +44,7 @@ let submitButton,
   configDialog,
   cheatSheetDialog,
   rulesDialog,
+  starChartDialog,
   possibleNumberElem,
   cheatSheetBtn;
 
@@ -113,6 +115,18 @@ function openRules() {
   rulesDialog.open();
 }
 
+function openStarChart() {
+  if (!starChartDialog) {
+    starChartDialog = createDialog(
+      createStarChartComponent(),
+      undefined,
+      getTranslation(TranslationKey.STAR_CHART),
+    );
+  }
+
+  starChartDialog.open();
+}
+
 function init() {
   initGameData();
 
@@ -181,6 +195,7 @@ function init() {
         pubSubService.publish(PubSubEvent.STARS_CHANGED, 1);
       }
       updateStarMap();
+      starChartDialog?.recreateDialogContent(createStarChartComponent());
     } else if (LOSE_STAR_TRIES.includes(globals.tries)) {
       pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
     }
@@ -247,6 +262,13 @@ function init() {
   mainContainer.appendChild(getStarsForGameField());
   mainContainer.appendChild(possibleNumberContainer);
   mainContainer.appendChild(revealedProperties);
+  mainContainer.appendChild(
+    createButton({
+      text: getTranslation(TranslationKey.STAR_CHART),
+      onClick: openStarChart,
+      iconBtn: true,
+    }),
+  );
   mainContainer.appendChild(rulesBtn);
   registerGuessListElement(guessList);
 }
