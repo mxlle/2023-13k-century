@@ -103,17 +103,23 @@ input {
   box-sizing: border-box;
   font-size: 2rem;
   width: 100%;
-  background: #222;
-  border: 1px solid #555;
+  background: #152134;
+  border: 1px solid #213345;
   color: white;
-  text-align: right;
+  text-align: center;
+  border-radius: 4px;
 
   &::placeholder {
     font-weight: 200;
     font-size: 0.75em;
-    color: #555;
-    text-align: left;
+    color: #213345;
     padding: 0.5rem;
+    font-style: italic;
+  }
+
+  &:focus-within {
+    outline: none;
+    border-color: cyan;
   }
 }
 
@@ -122,13 +128,13 @@ label {
   font-family: $font-family;
   cursor: pointer;
   color: white;
-  border: 1px solid #ccc;
-  background-color: rgba(white, 0.1);
+  border: 1px solid rgba(white, 0.1);
+  background-color: rgba(white, 0.06);
   padding: 1rem 2rem;
   border-radius: $border-radius;
 
   @include hover {
-    background-color: rgba(white, 0.2);
+    background-color: rgba(white, 0.1);
   }
 
   &.primary-btn {
