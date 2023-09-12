@@ -69,8 +69,12 @@ export function createGlobalStarsComponent() {
   return globalStarsElem;
 }
 
+function getStarMapKey() {
+  return `${LocalStorageKey.STAR_MAP}-${globals.minNum}-${globals.maxNum}`;
+}
+
 function getStarMap() {
-  const starMap = getLocalStorageItem(LocalStorageKey.STAR_MAP);
+  const starMap = getLocalStorageItem(getStarMapKey());
   return starMap ? JSON.parse(starMap) : {};
 }
 
@@ -79,7 +83,7 @@ export function updateStarMap() {
   const currentStarValue = starMap[globals.x] ?? 0;
   if (currentStars > currentStarValue) {
     starMap[globals.x] = Math.min(currentStars, maxStars);
-    setLocalStorageItem(LocalStorageKey.STAR_MAP, JSON.stringify(starMap));
+    setLocalStorageItem(getStarMapKey(), JSON.stringify(starMap));
     setCurrentGlobalStars();
     globalStarsElem.classList.toggle("new-star", true);
     setTimeout(() => globalStarsElem.classList.toggle("new-star", false), 1000);
