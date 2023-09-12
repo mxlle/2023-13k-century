@@ -13,7 +13,7 @@ import { globals } from "../../globals";
 const EMPTY_STAR = "☆";
 export const FULL_STAR = "★";
 const zeroClass = "zero";
-const maxStars = 5;
+export const maxStars = 5;
 let currentStars = maxStars;
 let globalStars = 0;
 let globalStarsElem;
@@ -96,7 +96,7 @@ function getStarMapKey() {
   return `${LocalStorageKey.STAR_MAP}-${globals.minNum}-${globals.maxNum}`;
 }
 
-function getStarMap() {
+export function getStarMap() {
   const starMap = getLocalStorageItem(getStarMapKey());
   return starMap ? JSON.parse(starMap) : {};
 }
