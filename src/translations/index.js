@@ -175,7 +175,7 @@ You can use these properties to find the secret number.  </p>
 Fun fact: If you need exactly 13 guesses you will win one star back. </p>
 
 <p>The game ends when you have found the secret number. <br/>
-You can then play again by pressing the "Play again" button.  </p>
+You can then play again with a new random number.  </p>
 
 <p><strong>Have fun!</strong> </p>
     `,
@@ -195,7 +195,7 @@ Du kannst diese Eigenschaften verwenden, um die geheime Zahl zu finden. </p>
 Fun fact: Wenn du genau 13 Versuche brauchst, erhälst du einen Stern zurück</p>
 
 <p>Das Spiel endet, wenn du die geheime Zahl gefunden hast.<br/>
-Du kannst dann erneut spielen, indem du auf die Schaltfläche "Nochmal spielen" klickst. </p>
+Du kannst dann erneut spielen mit einer neuen zufälligen Zahl. </p>
 
 <p><strong>Viel Spaß!</strong> </p>
     `,
