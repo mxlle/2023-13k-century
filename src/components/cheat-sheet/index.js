@@ -24,6 +24,7 @@ export function resetPossibleNumbers() {
   originalPossibleNumberProperties = [];
   isFilterUnlocked = false;
   isFilterActivated = false;
+  document.body.classList.remove("filter-on");
   filterButton?.classList.remove("unlocked");
 }
 
